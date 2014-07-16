@@ -22,4 +22,11 @@ public class BlackjackService {
         return "deposit successfull + " + sum;
     }
 
+    @GET
+    @Path("/transactions/{wallet}")
+    @Produces("text/plain")
+    public String getTransactions(@PathParam("wallet") Integer wallet) {
+        return "transactions for wallet " + wallet;
+    }
+
 }
