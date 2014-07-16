@@ -1,4 +1,4 @@
-package com.gotsuliak.sinteztask.blackjack.ws.container;
+package com.gotsuliak.sinteztask.blackjack.ws.container.response;
 
 import com.gotsuliak.sinteztask.blackjack.entity.Transaction;
 

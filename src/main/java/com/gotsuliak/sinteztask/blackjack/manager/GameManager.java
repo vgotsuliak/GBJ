@@ -12,8 +12,8 @@ public class GameManager {
     @EJB
     private WalletManager wallet;
 
-    public String startNewGame() {
-        return "someWalletId";
+    public int startNewGame() {
+        return 123;
     }
 
     public void putMoney(int walletId, long sum) {

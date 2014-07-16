@@ -1,19 +1,17 @@
 package com.gotsuliak.sinteztask.blackjack.ws;
 
-import com.gotsuliak.sinteztask.blackjack.ws.container.Response;
-import com.gotsuliak.sinteztask.blackjack.ws.container.TransactionsResponse;
-import com.gotsuliak.sinteztask.blackjack.ws.container.WalletResponse;
 import com.gotsuliak.sinteztask.blackjack.manager.GameManager;
+import com.gotsuliak.sinteztask.blackjack.ws.container.request.DepositRequest;
+import com.gotsuliak.sinteztask.blackjack.ws.container.response.Response;
+import com.gotsuliak.sinteztask.blackjack.ws.container.response.TransactionsResponse;
+import com.gotsuliak.sinteztask.blackjack.ws.container.response.WalletResponse;
 
 import javax.ejb.EJB;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/blackjack")
-public class BlackjackService {
+@Path("/wallet")
+public class WalletService {
 
     @EJB
     private GameManager manager;
@@ -28,12 +26,12 @@ public class BlackjackService {
         return response;
     }
 
-    @GET
-    @Path("/deposit/{sum}")
-    @Produces("text/plain")
-    public String deposit(@PathParam("sum") Integer sum) {
-        manager.putMoney(123, sum);
-        return "deposit successfull + " + sum;
+    @POST
+    @Path("/deposit")
+    @Produces({MediaType.APPLICATION_XML})
+    public WalletResponse deposit(DepositRequest request) {
+        manager.putMoney(request.getWalletId(), request.getSum());
+        return new WalletResponse();
     }
 
     @GET

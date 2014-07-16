@@ -1,4 +1,4 @@
-package com.gotsuliak.sinteztask.blackjack.ws.container;
+package com.gotsuliak.sinteztask.blackjack.ws.container.response;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,13 +10,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class WalletResponse extends Response {
 
     @XmlElement(name = "walletId")
-    private String walletId;
+    private int walletId;
 
-    public String getWalletId() {
+    public int getWalletId() {
         return walletId;
     }
 
-    public void setWalletId(String walletId) {
+    public void setWalletId(int walletId) {
         this.walletId = walletId;
     }
 }
