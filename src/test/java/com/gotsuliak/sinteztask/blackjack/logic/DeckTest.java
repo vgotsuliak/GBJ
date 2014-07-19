@@ -22,7 +22,7 @@ public class DeckTest {
     @Test
     public void testInitDeck() {
         deck.init();
-        int[] cards = deck.getCards();
+//        int[] cards = deck.getCards();
 
     }
 }
