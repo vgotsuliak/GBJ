@@ -3,12 +3,12 @@ package com.gotsuliak.sinteztask.blackjack.logic;
 public enum Card {
 
     TWO(2,2),
-    THREE(2,2),
-    FOUR(2,2),
-    FIVE(2,2),
-    SIX(2,2),
-    SEVEN(2,2),
-    EIGHT(2,2),
+    THREE(2,3),
+    FOUR(2,4),
+    FIVE(2,5),
+    SIX(2,6),
+    SEVEN(2,7),
+    EIGHT(2,8),
     NINE(9,9),
     TEN(10,10),
     JACK(11,10),
