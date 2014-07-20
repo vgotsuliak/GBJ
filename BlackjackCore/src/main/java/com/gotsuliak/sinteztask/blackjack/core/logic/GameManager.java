@@ -2,6 +2,7 @@ package com.gotsuliak.sinteztask.blackjack.core.logic;
 
 import com.gotsuliak.sinteztask.blackjack.core.entity.Transaction;
 import com.gotsuliak.sinteztask.blackjack.core.entity.Wallet;
+import com.gotsuliak.sinteztask.blackjack.core.exception.BlackjackException;
 import com.gotsuliak.sinteztask.blackjack.core.logic.BlackjackGame;
 import com.gotsuliak.sinteztask.blackjack.core.logic.GameState;
 
@@ -26,7 +27,14 @@ public class GameManager implements Serializable {
     }
 
     public GameState makeBet(long betSum) {
-        return game.makeBet(betSum);
+        GameState state = game.makeBet(betSum);
+        Wallet wallet = state.getWallet();
+        if (wallet.getSum() < betSum) {
+            throw BlackjackException.NOT_ENOUGH_MONEY;
+        }
+        wallet.setSum(wallet.getSum() - betSum);
+        walletManager.setMoney(wallet);
+        return state;
     }
 
     public GameState hit() {

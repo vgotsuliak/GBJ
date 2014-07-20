@@ -4,6 +4,9 @@ package com.gotsuliak.sinteztask.blackjack.core.logic;
 import com.gotsuliak.sinteztask.blackjack.core.entity.Transaction;
 import com.gotsuliak.sinteztask.blackjack.core.entity.Wallet;
 
+import javax.ejb.Stateless;
+
+@Stateless
 public class WalletManager {
 
     public Wallet newWallet() {
@@ -17,6 +20,10 @@ public class WalletManager {
         Wallet wallet = new Wallet();
         wallet.setId(123);
         wallet.setSum(2000);
+        return wallet;
+    }
+
+    public Wallet setMoney(Wallet wallet) {
         return wallet;
     }
 

@@ -28,6 +28,7 @@ public class GameState {
     @XmlElement(name = "dealer")
     private State dealer = new State();
     private long winSum;
+    @XmlElement(name = "wallet")
     private Wallet wallet;
 
     public void clear() {

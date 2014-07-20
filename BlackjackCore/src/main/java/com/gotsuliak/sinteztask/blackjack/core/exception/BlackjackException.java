@@ -2,6 +2,8 @@ package com.gotsuliak.sinteztask.blackjack.core.exception;
 
 public class BlackjackException extends RuntimeException {
 
+    public static final BlackjackException NOT_ENOUGH_MONEY = new BlackjackException(1, "Not enough money to make bet");
+
     private int code;
 
     public BlackjackException(int code, String message) {
