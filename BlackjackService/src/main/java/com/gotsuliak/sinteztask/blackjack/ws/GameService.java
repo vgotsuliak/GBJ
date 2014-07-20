@@ -1,5 +1,6 @@
 package com.gotsuliak.sinteztask.blackjack.ws;
 
+import com.gotsuliak.sinteztask.blackjack.core.exception.BlackjackException;
 import com.gotsuliak.sinteztask.blackjack.core.logic.BlackjackGame;
 import com.gotsuliak.sinteztask.blackjack.core.logic.GameState;
 import com.gotsuliak.sinteztask.blackjack.core.manager.GameManager;
@@ -11,6 +12,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
+import javax.xml.bind.JAXB;
+import java.io.StringWriter;
 
 @Path("/game")
 public class GameService {
@@ -44,6 +51,16 @@ public class GameService {
     @Produces({MediaType.APPLICATION_XML})
     public GameState stand() {
         return game.stand();
+    }
+
+    @Provider
+    public static class ExceptionHandler implements ExceptionMapper<BlackjackException> {
+        @Override
+        public Response toResponse(BlackjackException e) {
+            StringWriter writer = new StringWriter();
+            JAXB.marshal(new com.gotsuliak.sinteztask.blackjack.ws.container.response.Response(e.getCode(), e.getMessage()), writer);
+            return Response.status(200).entity(writer.toString()).build();
+        }
     }
 
 }

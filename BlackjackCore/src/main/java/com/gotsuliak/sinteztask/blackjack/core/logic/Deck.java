@@ -1,6 +1,7 @@
 package com.gotsuliak.sinteztask.blackjack.core.logic;
 
 import com.gotsuliak.sinteztask.blackjack.core.entity.Card;
+import com.gotsuliak.sinteztask.blackjack.core.exception.BlackjackException;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -57,7 +58,7 @@ public class Deck {
 
     public Card getCard() {
         if (currentCard >= 52) {
-            throw new RuntimeException("The deck is empty");
+            throw new BlackjackException(3, "The deck is empty");
         }
         return cards[currentCard++];
     }

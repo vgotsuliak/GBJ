@@ -14,6 +14,14 @@ public class Response {
     @XmlAttribute(name = "message")
     private String message;
 
+    public Response(Integer status, String message) {
+        this.status = status;
+        this.message = message;
+    }
+
+    public Response() {
+    }
+
     public Integer getStatus() {
         return status;
     }
