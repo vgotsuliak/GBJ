@@ -1,5 +1,9 @@
 package com.gotsuliak.sinteztask.blackjack.logic;
 
+import javax.ejb.Stateful;
+import javax.ejb.Stateless;
+
+@Stateless
 public class BlackjackGame {
 
     private final static int BLACKJACK = 21;
