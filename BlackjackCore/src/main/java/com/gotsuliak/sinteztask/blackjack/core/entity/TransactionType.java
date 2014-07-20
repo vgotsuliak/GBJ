@@ -1,4 +1,4 @@
-package com.gotsuliak.sinteztask.blackjack.entity;
+package com.gotsuliak.sinteztask.blackjack.core.entity;
 
 public enum TransactionType {
 

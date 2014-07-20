@@ -1,7 +1,7 @@
-package com.gotsuliak.sinteztask.blackjack.manager;
+package com.gotsuliak.sinteztask.blackjack.core.manager;
 
-import com.gotsuliak.sinteztask.blackjack.entity.Transaction;
-import com.gotsuliak.sinteztask.blackjack.logic.BlackjackGame;
+import com.gotsuliak.sinteztask.blackjack.core.entity.Transaction;
+import com.gotsuliak.sinteztask.blackjack.core.logic.BlackjackGame;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -11,8 +11,6 @@ import java.util.List;
 public class GameManager {
 
     @EJB
-    private WalletManager wallet;
-    @EJB
     private BlackjackGame game;
 
     public int startNewGame() {
@@ -20,11 +18,10 @@ public class GameManager {
     }
 
     public void putMoney(int walletId, long sum) {
-        wallet.putMoney(walletId, sum);
     }
 
     public List<Transaction> getTransactions(int walletId) {
-        return wallet.getTransactions(walletId);
+        return null;
     }
 
     public void makeBet(long betSum) {

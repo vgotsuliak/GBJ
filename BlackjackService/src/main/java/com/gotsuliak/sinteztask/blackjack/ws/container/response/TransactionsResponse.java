@@ -1,6 +1,6 @@
 package com.gotsuliak.sinteztask.blackjack.ws.container.response;
 
-import com.gotsuliak.sinteztask.blackjack.entity.Transaction;
+import com.gotsuliak.sinteztask.blackjack.core.entity.Transaction;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.gotsuliak.sinteztask.blackjack.ws;
 
-import com.gotsuliak.sinteztask.blackjack.logic.BlackjackGame;
-import com.gotsuliak.sinteztask.blackjack.logic.GameState;
+import com.gotsuliak.sinteztask.blackjack.core.logic.BlackjackGame;
+import com.gotsuliak.sinteztask.blackjack.core.logic.GameState;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
