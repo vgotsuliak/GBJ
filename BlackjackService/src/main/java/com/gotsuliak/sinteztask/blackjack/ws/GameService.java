@@ -2,8 +2,10 @@ package com.gotsuliak.sinteztask.blackjack.ws;
 
 import com.gotsuliak.sinteztask.blackjack.core.logic.BlackjackGame;
 import com.gotsuliak.sinteztask.blackjack.core.logic.GameState;
+import com.gotsuliak.sinteztask.blackjack.core.manager.GameManager;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -13,27 +15,35 @@ import javax.ws.rs.core.MediaType;
 @Path("/game")
 public class GameService {
 
-    @EJB
-    private BlackjackGame game;
+    @Inject
+    private GameManager game;
+
+    @GET
+    @Path("/newGame")
+    @Produces({MediaType.APPLICATION_XML})
+    public GameState newGame() {
+        return game.newGame();
+    }
 
     @GET
     @Path("/makeBet/{sum}")
-    @Produces({MediaType.TEXT_HTML})
-    public String makeBet(@PathParam("sum") Long sum) {
-        GameState gameState = game.makeBet(sum);
-
-        return "A new bet was made " + gameState.getPlayer().getCards().size();
+    @Produces({MediaType.APPLICATION_XML})
+    public GameState makeBet(@PathParam("sum") Long sum) {
+        return game.makeBet(sum);
     }
 
     @GET
     @Path("/hit")
-    @Produces({MediaType.TEXT_HTML})
-    public String hit() {
-        GameState gameState = game.hit();
-        return "Hit was made " + gameState.getPlayer().getCards().size();
+    @Produces({MediaType.APPLICATION_XML})
+    public GameState hit() {
+        return game.hit();
     }
 
-    public void stand() {
+    @GET
+    @Path("/stand")
+    @Produces({MediaType.APPLICATION_XML})
+    public GameState stand() {
+        return game.stand();
     }
 
 }
