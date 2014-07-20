@@ -4,10 +4,7 @@ import com.gotsuliak.sinteztask.blackjack.core.entity.Card;
 
 import javax.enterprise.context.SessionScoped;
 import javax.xml.bind.JAXB;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,16 +59,15 @@ public class GameState {
         this.winSum = winSum;
     }
 
-    @XmlAccessorType(XmlAccessType.FIELD)
     public static class State {
 
-        @XmlElement(name = "card")
         private List<Card> cards = new ArrayList<>();
 
         public void addCard(Card card) {
             cards.add(card);
         }
 
+        @XmlElement(name = "points")
         public int getPoints() {
             int points = 0;
             for (Card card : cards) {
@@ -80,9 +76,12 @@ public class GameState {
             return points;
         }
 
+        @XmlElementWrapper(name = "cards")
+        @XmlElement(name = "card")
         public List<Card> getCards() {
             return cards;
         }
+
     }
 
 }
