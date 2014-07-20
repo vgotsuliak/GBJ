@@ -18,7 +18,7 @@ public class WalletManager {
 
     public Wallet getWallet(int walletId) {
         Wallet wallet = new Wallet();
-        wallet.setId(123);
+        wallet.setId(walletId);
         wallet.setSum(2000);
         return wallet;
     }

@@ -29,9 +29,8 @@ public class BlackjackGame implements Serializable {
     }
 
     public GameState newGame(Wallet wallet) {
-        gameState.clear();
-        gameState.setWallet(wallet);
         initGame();
+        gameState.setWallet(wallet);
         return gameState;
     }
 
