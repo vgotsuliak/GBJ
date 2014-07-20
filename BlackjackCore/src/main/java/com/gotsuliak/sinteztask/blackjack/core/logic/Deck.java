@@ -58,7 +58,7 @@ public class Deck {
 
     public Card getCard() {
         if (currentCard >= 52) {
-            throw new BlackjackException(3, "The deck is empty");
+            throw BlackjackException.DECK_IS_EMPTY;
         }
         return cards[currentCard++];
     }

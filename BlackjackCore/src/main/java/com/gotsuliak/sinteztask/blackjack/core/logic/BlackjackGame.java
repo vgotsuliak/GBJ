@@ -36,7 +36,7 @@ public class BlackjackGame implements Serializable {
 
     public GameState makeBet(long betSum) {
         if (gameState.getGameStatus() != GameState.GAME_STATUS_WAITING_BET) {
-            throw new BlackjackException(1, "Bet is already made");
+            throw BlackjackException.BET_IS_ALREADY_MADE;
         }
         this.betSum = betSum;
         gameState.setGameStatus(GameState.GAME_STATUS_PLAYING);
@@ -61,7 +61,7 @@ public class BlackjackGame implements Serializable {
 
     public GameState hit() {
         if (gameState.getGameStatus() != GameState.GAME_STATUS_PLAYING) {
-            throw new BlackjackException(2, "Game state is not 'playing'");
+            throw BlackjackException.WRONG_GAME_STATE;
         }
         Card playerCard = deck.getCard();
         gameState.getPlayer().addCard(playerCard);
@@ -74,7 +74,7 @@ public class BlackjackGame implements Serializable {
 
     public GameState stand() {
         if (gameState.getGameStatus() != GameState.GAME_STATUS_PLAYING) {
-            throw new BlackjackException(2, "Game state is not 'playing'");
+            throw BlackjackException.WRONG_GAME_STATE;
         }
         while (gameState.getDealer().getPoints() < 17) {
             Card card = deck.getCard();
@@ -99,22 +99,6 @@ public class BlackjackGame implements Serializable {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
-    }
-
-    public static void main(String[] args) {
-        BlackjackGame game = new BlackjackGame();
-        game.makeBet(100);
-        game.hit();
-        game.stand();
-        for (Card card : game.gameState.getPlayer().getCards()) {
-            System.out.println(card.toString() + " - " + card.getValue());
-        }
-        System.out.println("-----");
-        for (Card card : game.gameState.getDealer().getCards()) {
-            System.out.println(card.toString() + " - " + card.getValue());
-        }
-        System.out.println(game.gameState.getGameStatus());
-        System.out.println(game.gameState.getWinSum());
     }
 
 }
