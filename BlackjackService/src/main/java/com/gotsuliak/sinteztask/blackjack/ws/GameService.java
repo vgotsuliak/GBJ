@@ -23,10 +23,10 @@ public class GameService {
     private GameManager game;
 
     @GET
-    @Path("/newGame")
+    @Path("/newGame/{walletId}")
     @Produces({MediaType.APPLICATION_XML})
-    public GameState newGame() {
-        return game.newGame();
+    public GameState newGame(@PathParam("walletId") int walletId) {
+        return game.newGame(walletId);
     }
 
     @GET

@@ -1,6 +1,7 @@
 package com.gotsuliak.sinteztask.blackjack.core.logic;
 
 import com.gotsuliak.sinteztask.blackjack.core.entity.Transaction;
+import com.gotsuliak.sinteztask.blackjack.core.entity.Wallet;
 import com.gotsuliak.sinteztask.blackjack.core.logic.BlackjackGame;
 import com.gotsuliak.sinteztask.blackjack.core.logic.GameState;
 
@@ -16,9 +17,12 @@ public class GameManager implements Serializable {
 
     @Inject
     private BlackjackGame game;
+    @EJB
+    private WalletManager walletManager;
 
-    public GameState newGame() {
-        return game.newGame();
+    public GameState newGame(int walletId) {
+        Wallet wallet = walletManager.getWallet(walletId);
+        return game.newGame(wallet);
     }
 
     public GameState makeBet(long betSum) {

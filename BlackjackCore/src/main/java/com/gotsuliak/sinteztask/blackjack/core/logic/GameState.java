@@ -1,6 +1,7 @@
 package com.gotsuliak.sinteztask.blackjack.core.logic;
 
 import com.gotsuliak.sinteztask.blackjack.core.entity.Card;
+import com.gotsuliak.sinteztask.blackjack.core.entity.Wallet;
 
 import javax.enterprise.context.SessionScoped;
 import javax.xml.bind.JAXB;
@@ -27,6 +28,7 @@ public class GameState {
     @XmlElement(name = "dealer")
     private State dealer = new State();
     private long winSum;
+    private Wallet wallet;
 
     public void clear() {
         gameStatus = GAME_STATUS_WAITING_BET;
@@ -57,6 +59,14 @@ public class GameState {
 
     public void setWinSum(long winSum) {
         this.winSum = winSum;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 
     public static class State {

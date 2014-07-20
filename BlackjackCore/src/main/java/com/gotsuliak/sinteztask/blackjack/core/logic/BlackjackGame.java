@@ -2,6 +2,7 @@ package com.gotsuliak.sinteztask.blackjack.core.logic;
 
 
 import com.gotsuliak.sinteztask.blackjack.core.entity.Card;
+import com.gotsuliak.sinteztask.blackjack.core.entity.Wallet;
 import com.gotsuliak.sinteztask.blackjack.core.exception.BlackjackException;
 
 import javax.enterprise.context.SessionScoped;
@@ -27,8 +28,9 @@ public class BlackjackGame implements Serializable {
         deck.shuffle();
     }
 
-    public GameState newGame() {
+    public GameState newGame(Wallet wallet) {
         gameState.clear();
+        gameState.setWallet(wallet);
         initGame();
         return gameState;
     }

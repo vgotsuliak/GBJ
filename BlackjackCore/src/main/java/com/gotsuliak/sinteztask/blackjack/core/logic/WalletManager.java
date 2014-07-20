@@ -13,6 +13,13 @@ public class WalletManager {
         return wallet;
     }
 
+    public Wallet getWallet(int walletId) {
+        Wallet wallet = new Wallet();
+        wallet.setId(123);
+        wallet.setSum(2000);
+        return wallet;
+    }
+
     public void putMoney(int walletId, long sum) {
     }
 
