@@ -1,6 +1,6 @@
 package com.gotsuliak.sinteztask.blackjack.ws;
 
-import com.gotsuliak.sinteztask.blackjack.core.logic.GameManager;
+import com.gotsuliak.sinteztask.blackjack.core.logic.WalletManager;
 import com.gotsuliak.sinteztask.blackjack.ws.container.request.DepositRequest;
 import com.gotsuliak.sinteztask.blackjack.ws.container.response.Response;
 import com.gotsuliak.sinteztask.blackjack.ws.container.response.TransactionsResponse;
@@ -14,15 +14,15 @@ import javax.ws.rs.core.MediaType;
 public class WalletService {
 
     @EJB
-    private GameManager manager;
+    private WalletManager manager;
 
     @GET
-    @Path("/start")
+    @Path("/new")
     @Produces({MediaType.APPLICATION_XML})
-    public Response start() {
+    public Response newWallet() {
         WalletResponse response = new WalletResponse();
         response.setStatus(0);
-        response.setWalletId(manager.startNewGame());
+        response.setWalletId(manager.newWallet().getId());
         return response;
     }
 
@@ -39,7 +39,8 @@ public class WalletService {
     @Produces({MediaType.APPLICATION_XML})
     public TransactionsResponse getTransactions(@PathParam("wallet") Integer wallet) {
         TransactionsResponse response = new TransactionsResponse();
-        response.setTransactions(manager.getTransactions(wallet));
+        manager.getTransactions(wallet);
+        response.setTransactions(null);
         response.setStatus(0);
         return response;
     }

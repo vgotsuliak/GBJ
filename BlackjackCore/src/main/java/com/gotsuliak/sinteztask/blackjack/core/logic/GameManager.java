@@ -17,17 +17,6 @@ public class GameManager implements Serializable {
     @Inject
     private BlackjackGame game;
 
-    public int startNewGame() {
-        return 123;
-    }
-
-    public void putMoney(int walletId, long sum) {
-    }
-
-    public List<Transaction> getTransactions(int walletId) {
-        return null;
-    }
-
     public GameState newGame() {
         return game.newGame();
     }
