@@ -1,6 +1,6 @@
 package com.gotsuliak.sinteztask.blackjack.ws;
 
-import com.gotsuliak.sinteztask.blackjack.core.manager.GameManager;
+import com.gotsuliak.sinteztask.blackjack.core.logic.GameManager;
 import com.gotsuliak.sinteztask.blackjack.ws.container.request.DepositRequest;
 import com.gotsuliak.sinteztask.blackjack.ws.container.response.Response;
 import com.gotsuliak.sinteztask.blackjack.ws.container.response.TransactionsResponse;

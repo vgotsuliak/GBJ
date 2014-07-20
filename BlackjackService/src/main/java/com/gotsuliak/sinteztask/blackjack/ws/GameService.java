@@ -1,18 +1,15 @@
 package com.gotsuliak.sinteztask.blackjack.ws;
 
 import com.gotsuliak.sinteztask.blackjack.core.exception.BlackjackException;
-import com.gotsuliak.sinteztask.blackjack.core.logic.BlackjackGame;
 import com.gotsuliak.sinteztask.blackjack.core.logic.GameState;
-import com.gotsuliak.sinteztask.blackjack.core.manager.GameManager;
+import com.gotsuliak.sinteztask.blackjack.core.logic.GameManager;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
