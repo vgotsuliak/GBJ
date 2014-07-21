@@ -29,6 +29,11 @@ public class GameManager implements Serializable {
         }
         wallet.setSum(wallet.getSum() - betSum);
         walletManager.setMoney(wallet);
+        if (state.getGameStatus() != GameState.GAME_STATUS_PLAYING
+                && state.getGameStatus() != GameState.GAME_STATUS_WAITING_BET) {
+            wallet.setSum(state.getWallet().getSum() + state.getWinSum());
+            walletManager.setMoney(wallet);
+        }
         return state;
     }
 
