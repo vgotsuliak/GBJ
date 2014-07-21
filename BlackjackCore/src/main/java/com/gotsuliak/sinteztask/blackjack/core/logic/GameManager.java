@@ -1,17 +1,12 @@
 package com.gotsuliak.sinteztask.blackjack.core.logic;
 
-import com.gotsuliak.sinteztask.blackjack.core.entity.Transaction;
 import com.gotsuliak.sinteztask.blackjack.core.entity.Wallet;
 import com.gotsuliak.sinteztask.blackjack.core.exception.BlackjackException;
-import com.gotsuliak.sinteztask.blackjack.core.logic.BlackjackGame;
-import com.gotsuliak.sinteztask.blackjack.core.logic.GameState;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.List;
 
 @SessionScoped
 public class GameManager implements Serializable {
@@ -38,11 +33,20 @@ public class GameManager implements Serializable {
     }
 
     public GameState hit() {
-        return game.hit();
+        GameState gameState = game.hit();
+        if (gameState.getGameStatus() != GameState.GAME_STATUS_WAITING_BET
+                && gameState.getGameStatus() != GameState.GAME_STATUS_PLAYING) {
+            gameState.getWallet().setSum(gameState.getWallet().getSum() + gameState.getWinSum());
+        }
+        walletManager.setMoney(gameState.getWallet());
+        return gameState;
     }
 
     public GameState stand() {
-        return game.stand();
+        GameState gameState = game.stand();
+        gameState.getWallet().setSum(gameState.getWallet().getSum() + gameState.getWinSum());
+        walletManager.setMoney(gameState.getWallet());
+        return gameState;
     }
 
 }
