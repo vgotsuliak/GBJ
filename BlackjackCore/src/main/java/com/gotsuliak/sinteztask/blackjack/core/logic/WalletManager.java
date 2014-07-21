@@ -1,33 +1,40 @@
 package com.gotsuliak.sinteztask.blackjack.core.logic;
 
 
+import com.gotsuliak.sinteztask.blackjack.core.data_access.WalletDAO;
 import com.gotsuliak.sinteztask.blackjack.core.entity.Transaction;
 import com.gotsuliak.sinteztask.blackjack.core.entity.Wallet;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 @Stateless
 public class WalletManager {
 
+    @EJB
+    private WalletDAO walletDAO;
+
     public Wallet newWallet() {
-        Wallet wallet = new Wallet();
-        wallet.setId(12345);
-        wallet.setSum(0);
-        return wallet;
+        return walletDAO.newWallet();
     }
 
     public Wallet getWallet(int walletId) {
         Wallet wallet = new Wallet();
         wallet.setId(walletId);
-        wallet.setSum(2000);
-        return wallet;
+        return walletDAO.getWallet(wallet);
     }
 
     public Wallet setMoney(Wallet wallet) {
-        return wallet;
+        return walletDAO.updateSum(wallet);
     }
 
-    public void putMoney(int walletId, long sum) {
+    public Wallet putMoney(int walletId, long sum) {
+        Wallet wallet = new Wallet();
+        wallet.setId(walletId);
+        wallet.setSum(sum);
+        Wallet storedWallet = walletDAO.getWallet(wallet);
+        storedWallet.setSum(storedWallet.getSum() + sum);
+        return walletDAO.updateSum(storedWallet);
     }
 
     public void storeTransaction(Transaction transaction) {

@@ -1,7 +1,6 @@
 package com.gotsuliak.sinteztask.blackjack.ws;
 
 import com.gotsuliak.sinteztask.blackjack.core.logic.WalletManager;
-import com.gotsuliak.sinteztask.blackjack.ws.container.request.DepositRequest;
 import com.gotsuliak.sinteztask.blackjack.ws.container.response.Response;
 import com.gotsuliak.sinteztask.blackjack.ws.container.response.TransactionsResponse;
 import com.gotsuliak.sinteztask.blackjack.ws.container.response.WalletResponse;
@@ -26,11 +25,11 @@ public class WalletService {
         return response;
     }
 
-    @POST
-    @Path("/deposit")
+    @GET
+    @Path("/deposit/{walletId}/{sum}")
     @Produces({MediaType.APPLICATION_XML})
-    public WalletResponse deposit(DepositRequest request) {
-        manager.putMoney(request.getWalletId(), request.getSum());
+    public WalletResponse deposit(@PathParam("walletId") int walletId, @PathParam("sum") long sum) {
+        manager.putMoney(walletId, sum);
         return new WalletResponse();
     }
 
