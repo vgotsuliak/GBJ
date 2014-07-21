@@ -18,6 +18,15 @@ public class Transaction {
     @ManyToOne
     private Wallet wallet;
 
+    public Transaction(int type, long sum, Wallet wallet) {
+        this.type = type;
+        this.sum = sum;
+        this.wallet = wallet;
+    }
+
+    public Transaction() {
+    }
+
     public int getId() {
         return id;
     }

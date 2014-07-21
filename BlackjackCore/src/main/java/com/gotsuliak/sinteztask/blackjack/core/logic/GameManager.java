@@ -32,11 +32,7 @@ public class GameManager implements Serializable {
         Wallet wallet = state.getWallet();
         wallet.setSum(wallet.getSum() - betSum);
         walletManager.setMoney(wallet);
-        Transaction transaction = new Transaction();
-        transaction.setWallet(wallet);
-        transaction.setType(Transaction.BET_TYPE);
-        transaction.setSum(betSum);
-        walletManager.storeTransaction(transaction);
+        storeTransaction(wallet, betSum, Transaction.BET_TYPE);
         if (state.getGameStatus() != GameState.GAME_STATUS_PLAYING
                 && state.getGameStatus() != GameState.GAME_STATUS_WAITING_BET) {
             wallet.setSum(state.getWallet().getSum() + state.getWinSum());
@@ -53,10 +49,7 @@ public class GameManager implements Serializable {
         if (gameState.getGameStatus() != GameState.GAME_STATUS_WAITING_BET
                 && gameState.getGameStatus() != GameState.GAME_STATUS_PLAYING) {
             gameState.getWallet().setSum(gameState.getWallet().getSum() + gameState.getWinSum());
-            Transaction transaction = new Transaction();
-            transaction.setType(Transaction.WIN_TYPE);
-            transaction.setWallet(gameState.getWallet());
-            transaction.setSum(gameState.getWinSum());
+            storeTransaction(gameState.getWallet(), gameState.getWinSum(), Transaction.WIN_TYPE);
         }
         walletManager.setMoney(gameState.getWallet());
         return gameState;
@@ -69,7 +62,16 @@ public class GameManager implements Serializable {
         GameState gameState = game.stand();
         gameState.getWallet().setSum(gameState.getWallet().getSum() + gameState.getWinSum());
         walletManager.setMoney(gameState.getWallet());
+        storeTransaction(gameState.getWallet(), gameState.getWinSum(), Transaction.WIN_TYPE);
         return gameState;
+    }
+
+    public void storeTransaction(Wallet wallet, long transactionSum, int transactionType) {
+        Transaction transaction = new Transaction();
+        transaction.setWallet(wallet);
+        transaction.setSum(transactionSum);
+        transaction.setType(transactionType);
+        walletManager.storeTransaction(transaction);
     }
 
 }

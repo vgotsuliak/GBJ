@@ -35,7 +35,9 @@ public class WalletManager {
         wallet.setSum(sum);
         Wallet storedWallet = walletDAO.getWallet(wallet);
         storedWallet.setSum(storedWallet.getSum() + sum);
-        return walletDAO.updateSum(storedWallet);
+        Wallet updatedWallet = walletDAO.updateSum(storedWallet);
+        storeTransaction(new Transaction(Transaction.PUT_TYPE, sum, updatedWallet));
+        return updatedWallet;
     }
 
     public Transaction storeTransaction(Transaction transaction) {
