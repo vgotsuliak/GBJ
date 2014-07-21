@@ -22,11 +22,13 @@ public class GameManager implements Serializable {
     }
 
     public GameState makeBet(long betSum) {
-        GameState state = game.makeBet(betSum);
-        Wallet wallet = state.getWallet();
-        if (wallet.getSum() < betSum) {
+        if (game.getGameState().getGameStatus() != GameState.GAME_STATUS_WAITING_BET) {
+            throw BlackjackException.BET_IS_ALREADY_MADE;
+        } else if (game.getGameState().getWallet().getSum() < betSum) {
             throw BlackjackException.NOT_ENOUGH_MONEY;
         }
+        GameState state = game.makeBet(betSum);
+        Wallet wallet = state.getWallet();
         wallet.setSum(wallet.getSum() - betSum);
         walletManager.setMoney(wallet);
         if (state.getGameStatus() != GameState.GAME_STATUS_PLAYING
@@ -38,6 +40,9 @@ public class GameManager implements Serializable {
     }
 
     public GameState hit() {
+        if (game.getGameState().getGameStatus() != GameState.GAME_STATUS_PLAYING) {
+            throw BlackjackException.WRONG_GAME_STATE;
+        }
         GameState gameState = game.hit();
         if (gameState.getGameStatus() != GameState.GAME_STATUS_WAITING_BET
                 && gameState.getGameStatus() != GameState.GAME_STATUS_PLAYING) {
@@ -48,6 +53,9 @@ public class GameManager implements Serializable {
     }
 
     public GameState stand() {
+        if (game.getGameState().getGameStatus() != GameState.GAME_STATUS_PLAYING) {
+            throw BlackjackException.WRONG_GAME_STATE;
+        }
         GameState gameState = game.stand();
         gameState.getWallet().setSum(gameState.getWallet().getSum() + gameState.getWinSum());
         walletManager.setMoney(gameState.getWallet());

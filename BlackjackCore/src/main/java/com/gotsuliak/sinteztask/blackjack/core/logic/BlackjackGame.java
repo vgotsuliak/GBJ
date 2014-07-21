@@ -3,10 +3,8 @@ package com.gotsuliak.sinteztask.blackjack.core.logic;
 
 import com.gotsuliak.sinteztask.blackjack.core.entity.Card;
 import com.gotsuliak.sinteztask.blackjack.core.entity.Wallet;
-import com.gotsuliak.sinteztask.blackjack.core.exception.BlackjackException;
 
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import java.io.Serializable;
 
 @SessionScoped
@@ -35,9 +33,6 @@ public class BlackjackGame implements Serializable {
     }
 
     public GameState makeBet(long betSum) {
-        if (gameState.getGameStatus() != GameState.GAME_STATUS_WAITING_BET) {
-            throw BlackjackException.BET_IS_ALREADY_MADE;
-        }
         this.betSum = betSum;
         gameState.setGameStatus(GameState.GAME_STATUS_PLAYING);
         for (int i = 0; i < 2; i++) {
@@ -60,9 +55,7 @@ public class BlackjackGame implements Serializable {
     }
 
     public GameState hit() {
-        if (gameState.getGameStatus() != GameState.GAME_STATUS_PLAYING) {
-            throw BlackjackException.WRONG_GAME_STATE;
-        }
+
         Card playerCard = deck.getCard();
         gameState.getPlayer().addCard(playerCard);
         if (gameState.getPlayer().getPoints() > BLACKJACK) {
@@ -73,14 +66,10 @@ public class BlackjackGame implements Serializable {
     }
 
     public GameState stand() {
-        if (gameState.getGameStatus() != GameState.GAME_STATUS_PLAYING) {
-            throw BlackjackException.WRONG_GAME_STATE;
-        }
         while (gameState.getDealer().getPoints() < 17) {
             Card card = deck.getCard();
             gameState.getDealer().addCard(card);
         }
-
         if (gameState.getDealer().getPoints() > 21) {
             gameState.setGameStatus(GameState.GAME_STATUS_PLAYER_WINS);
             gameState.setWinSum(betSum * 2);
@@ -101,4 +90,7 @@ public class BlackjackGame implements Serializable {
         this.gameState = gameState;
     }
 
+    public GameState getGameState() {
+        return gameState;
+    }
 }
