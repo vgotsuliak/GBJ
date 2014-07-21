@@ -7,6 +7,7 @@ import com.gotsuliak.sinteztask.blackjack.core.entity.Wallet;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.List;
 
 @Stateless
 public class WalletManager {
@@ -37,10 +38,16 @@ public class WalletManager {
         return walletDAO.updateSum(storedWallet);
     }
 
-    public void storeTransaction(Transaction transaction) {
+    public Transaction storeTransaction(Transaction transaction) {
+        return walletDAO.addTransaction(transaction);
     }
 
-    public void getTransactions(int walletId) {
+    public List<Transaction> getTransactions(int walletId) {
+        Transaction transaction = new Transaction();
+        Wallet wallet = new Wallet();
+        wallet.setId(walletId);
+        transaction.setWallet(wallet);
+        return walletDAO.getTransactions(transaction);
     }
 
 }

@@ -1,18 +1,22 @@
 package com.gotsuliak.sinteztask.blackjack.core.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 @Entity
 public class Transaction {
+
+    public static final int PUT_TYPE = 1;
+    public static final int BET_TYPE = 2;
+    public static final int WIN_TYPE = 3;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int type;
     private long sum;
+    @ManyToOne
+    private Wallet wallet;
 
     public int getId() {
         return id;
@@ -36,5 +40,13 @@ public class Transaction {
 
     public void setSum(long sum) {
         this.sum = sum;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 }

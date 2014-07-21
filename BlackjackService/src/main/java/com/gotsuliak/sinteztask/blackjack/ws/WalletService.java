@@ -53,9 +53,7 @@ public class WalletService {
     @Produces({MediaType.APPLICATION_XML})
     public TransactionsResponse getTransactions(@PathParam("wallet") Integer wallet) {
         TransactionsResponse response = new TransactionsResponse();
-        manager.getTransactions(wallet);
-        response.setTransactions(null);
-        response.setStatus(0);
+        response.setTransactions(manager.getTransactions(wallet));
         return response;
     }
 

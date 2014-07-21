@@ -1,5 +1,6 @@
 package com.gotsuliak.sinteztask.blackjack.core.logic;
 
+import com.gotsuliak.sinteztask.blackjack.core.entity.Transaction;
 import com.gotsuliak.sinteztask.blackjack.core.entity.Wallet;
 import com.gotsuliak.sinteztask.blackjack.core.exception.BlackjackException;
 
@@ -31,6 +32,11 @@ public class GameManager implements Serializable {
         Wallet wallet = state.getWallet();
         wallet.setSum(wallet.getSum() - betSum);
         walletManager.setMoney(wallet);
+        Transaction transaction = new Transaction();
+        transaction.setWallet(wallet);
+        transaction.setType(Transaction.BET_TYPE);
+        transaction.setSum(betSum);
+        walletManager.storeTransaction(transaction);
         if (state.getGameStatus() != GameState.GAME_STATUS_PLAYING
                 && state.getGameStatus() != GameState.GAME_STATUS_WAITING_BET) {
             wallet.setSum(state.getWallet().getSum() + state.getWinSum());
@@ -47,6 +53,10 @@ public class GameManager implements Serializable {
         if (gameState.getGameStatus() != GameState.GAME_STATUS_WAITING_BET
                 && gameState.getGameStatus() != GameState.GAME_STATUS_PLAYING) {
             gameState.getWallet().setSum(gameState.getWallet().getSum() + gameState.getWinSum());
+            Transaction transaction = new Transaction();
+            transaction.setType(Transaction.WIN_TYPE);
+            transaction.setWallet(gameState.getWallet());
+            transaction.setSum(gameState.getWinSum());
         }
         walletManager.setMoney(gameState.getWallet());
         return gameState;
